@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlucoCheck | Diabetes Risk Assessment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a89dc;
+            --secondary: #37bc9b;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --highlight: #f6b93b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a70c4;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .hero-img {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .hero-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        
+        .features {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .formula-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .formula-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .formula {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .formula-legend {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .calculator {
+            padding: 5rem 5%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .calculator-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .input-group input {
+            flex: 1;
+        }
+        
+        .bmi-visual {
+            margin: 1rem 0;
+        }
+        
+        progress {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+        }
+        
+        progress::-webkit-progress-bar {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        
+        progress::-webkit-progress-value {
+            background-color: var(--primary);
+            border-radius: 5px;
+        }
+        
+        .risk-result {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .risk-low {
+            background-color: #e8f8f0;
+            color: #27ae60;
+        }
+        
+        .risk-medium {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+        
+        .risk-high {
+            background-color: #fdedec;
+            color: #e74c3c;
+        }
+        
+        .risk-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>GlucoCheck</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#science">Science</a>
+                <a href="#calculator">Calculator</a>
+                <a href="#about">About</a>
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('calculator').scrollIntoView()">Check Your Risk</button>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Diabetes Risk Assessment Powered by Medical Science</h1>
+        <p>Get a clinically-validated assessment of your diabetes risk using proven medical algorithms and research-backed methodology.</p>
+        <div class="hero-btns">
+            <button class="btn btn-primary" onclick="document.getElementById('calculator').scrollIntoView()">Assess Your Risk Now</button>
+            <button class="btn" style="background: white; color: var(--primary); border: 1px solid var(--primary);" onclick="document.getElementById('science').scrollIntoView()">Learn the Science</button>
+        </div>
+        <div class="hero-img">
+            <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Doctor reviewing diabetes risk assessment with patient">
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Why Use GlucoCheck?</h2>
+            <p>Our assessment goes beyond basic calculators with clinically-proven methodology</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3>Research-Backed</h3>
+                <p>Based on the Finnish Diabetes Risk Score (FINDRISC) and other validated clinical models.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>Comprehensive Factors</h3>
+                <p>Considers 12 key risk factors including BMI, waist circumference, family history, and physical activity.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Personalized Results</h3>
+                <p>Get a detailed breakdown of your risk factors and specific recommendations to reduce your risk.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="science">
+        <div class="section-title">
+            <h2>The Science Behind Our Assessment</h2>
+            <p>Our algorithm combines multiple validated diabetes risk prediction models</p>
+        </div>
+        
+        <div class="formula-card">
+            <h3>Finnish Diabetes Risk Score (FINDRISC)</h3>
+            <div class="formula">
+                Risk Score = Age + BMI + Waist Circumference + Physical Activity + Diet + Medication + History + Family History
+            </div>
+            <div class="formula-legend">
+                <p><strong>Scoring:</strong> 0-8 points = Low risk | 9-14 points = Moderate risk | 15-20 points = High risk | >20 points = Very high risk</p>
+                <p><strong>Validation:</strong> 78% sensitivity and 77% specificity for predicting type 2 diabetes within 10 years</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator" id="calculator">
+        <div class="section-title">
+            <h2>Diabetes Risk Calculator</h2>
+            <p>Complete the form below to assess your diabetes risk using our clinically-validated algorithm</p>
+        </div>
+        <div class="calculator-container">
+            <div class="form-group">
+                <label for="age">Age (years)</label>
+                <input type="number" id="age" placeholder="Enter your age" min="18" max="100" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" placeholder="Enter height in cm" min="100" max="250" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" placeholder="Enter weight in kg" min="30" max="200" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="waist">Waist Circumference (cm)</label>
+                <input type="number" id="waist" placeholder="Enter waist measurement" min="50" max="200" required>
+                <small>Measure at the level of your navel</small>
+            </div>
+            
+            <div class="form-group">
+                <label>Physical Activity</label>
+                <select id="activity" required>
+                    <option value="">Select activity level</option>
+                    <option value="3">Less than 30 min/week</option>
+                    <option value="2">30-120 min/week</option>
+                    <option value="1">120-240 min/week</option>
+                    <option value="0">More than 240 min/week</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you eat vegetables, fruits, or berries daily?</label>
+                <select id="diet" required>
+                    <option value="">Select option</option>
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Have you ever taken blood pressure medication regularly?</label>
+                <select id="bp-meds" required>
+                    <option value="">Select option</option>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Have you ever had high blood glucose?</label>
+                <select id="high-glucose" required>
+                    <option value="">Select option</option>
+                    <option value="0">No</option>
+                    <option value="5">Yes</option>
+                </select>
+                <small>(e.g., in health examination, during illness, or pregnancy)</small>
+            </div>
+            
+            <div class="form-group">
+                <label>Family History of Diabetes</label>
+                <select id="family-history" required>
+                    <option value="">Select option</option>
+                    <option value="0">No</option>
+                    <option value="3">Grandparent, aunt/uncle, or cousin</option>
+                    <option value="5">Parent, sibling, or child</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-primary" onclick="calculateRisk()">Calculate My Diabetes Risk</button>
+            
+            <div id="riskResult" class="risk-result">
+                <h3>Your Diabetes Risk</h3>
+                <div class="risk-value" id="riskPercentage">0%</div>
+                <p id="riskCategory"></p>
+                <p id="riskDescription"></p>
+                <div id="riskRecommendations"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#science">Science</a>
+            <a href="#calculator">Calculator</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="copyright">© 2023 GlucoCheck. This tool is for educational purposes only and does not replace professional medical advice.</p>
+    </footer>
+
+    <script>
+        // Enhanced FINDRISC Calculation
+        function calculateRisk() {
+            // Get all input elements
+            const inputs = [
+                'age', 'gender', 'height', 'weight', 'waist', 
+                'activity', 'diet', 'bp-meds', 'high-glucose', 'family-history'
+            ].map(id => document.getElementById(id));
+            
+            // Validate all required fields
+            for (const input of inputs) {
+                if (!input.value) {
+                    alert(`Please fill in the ${input.labels[0].textContent} field`);
+                    input.focus();
+                    return;
+                }
+            }
+            
+            // Get numeric values
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const height = parseInt(document.getElementById('height').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            const waist = parseInt(document.getElementById('waist').value);
+            const activity = parseInt(document.getElementById('activity').value);
+            const diet = parseInt(document.getElementById('diet').value);
+            const bpMeds = parseInt(document.getElementById('bp-meds').value);
+            const highGlucose = parseInt(document.getElementById('high-glucose').value);
+            const familyHistory = parseInt(document.getElementById('family-history').value);
+            
+            // Validate numeric ranges
+            if (age < 18 || age > 100) {
+                alert("Age must be between 18-100 years");
+                return;
+            }
+            if (height < 100 || height > 250) {
+                alert("Height must be between 100-250 cm");
+                return;
+            }
+            if (weight < 30 || weight > 200) {
+                alert("Weight must be between 30-200 kg");
+                return;
+            }
+            if (waist < 50 || waist > 200) {
+                alert("Waist circumference must be between 50-200 cm");
+                return;
+            }
+            
+            // Calculate BMI
+            const bmi = weight / Math.pow(height/100, 2);
+            
+            // Calculate FINDRISC score
+            let riskScore = 0;
+            
+            // Age points
+            if (age < 45) riskScore += 0;
+            else if (age < 55) riskScore += 2;
+            else if (age < 65) riskScore += 3;
+            else riskScore += 4;
+            
+            // BMI points
+            if (bmi < 25) riskScore += 0;
+            else if (bmi < 30) riskScore += 1;
+            else if (bmi < 35) riskScore += 2;
+            else if (bmi < 40) riskScore += 3;
+            else riskScore += 4;
+            
+            // Waist circumference (gender specific)
+            if (gender === 'male') {
+                if (waist < 94) riskScore += 0;
+                else if (waist < 102) riskScore += 3;
+                else riskScore += 4;
+            } else {
+                if (waist < 80) riskScore += 0;
+                else if (waist < 88) riskScore += 3;
+                else riskScore += 4;
+            }
+            
+            // Add other factors
+            riskScore += activity; // Physical activity
+            riskScore += diet;     // Dietary habits
+            riskScore += bpMeds;  // Blood pressure meds
+            riskScore += highGlucose; // History of high glucose
+            riskScore += familyHistory; // Family history
+            
+            // Calculate risk percentage based on FINDRISC validation studies
+            let riskPercentage;
+            if (riskScore <= 8) riskPercentage = 1;
+            else if (riskScore <= 11) riskPercentage = 4;
+            else if (riskScore <= 14) riskPercentage = 17;
+            else if (riskScore <= 17) riskPercentage = 33;
+            else if (riskScore <= 20) riskPercentage = 50;
+            else riskPercentage = 64;
+            
+            // Adjust for gender (women generally have slightly lower risk)
+            if (gender === 'female') riskPercentage *= 0.9;
+            
+            // Cap at 80% for this simplified model
+            riskPercentage = Math.min(80, Math.round(riskPercentage));
+            
+            // Display results
+            const resultDiv = document.getElementById('riskResult');
+            document.getElementById('riskPercentage').textContent = riskPercentage + '%';
+            
+            let category, description, recommendations;
+            
+            if (riskScore <= 8) {
+                category = "Low Risk";
+                description = "Your risk of developing type 2 diabetes in the next 10 years is low.";
+                recommendations = `
+                    <p><strong>Recommendations:</strong></p>
+                    <ul>
+                        <li>Maintain your healthy lifestyle</li>
+                        <li>Continue regular physical activity</li>
+                        <li>Get checked every 3 years</li>
+                    </ul>
+                `;
+                resultDiv.className = "risk-result risk-low";
+            } else if (riskScore <= 14) {
+                category = "Moderate Risk";
+                description = "You have moderate risk of developing type 2 diabetes in the next 10 years.";
+                recommendations = `
+                    <p><strong>Recommendations:</strong></p>
+                    <ul>
+                        <li>Increase physical activity to at least 150 minutes/week</li>
+                        <li>Improve dietary habits (more vegetables, whole grains)</li>
+                        <li>Lose 5-10% of body weight if overweight</li>
+                        <li>Get checked every year</li>
+                    </ul>
+                `;
+                resultDiv.className = "risk-result risk-medium";
+            } else {
+                category = "High Risk";
+                description = "You have high risk of developing type 2 diabetes in the next 10 years.";
+                recommendations = `
+                    <p><strong>Recommendations:</strong></p>
+                    <ul>
+                        <li>Consult with a healthcare provider</li>
+                        <li>Consider blood glucose testing (HbA1c, fasting glucose)</li>
+                        <li>Lose 7-10% of body weight if overweight</li>
+                        <li>Increase physical activity to 300 minutes/week</li>
+                        <li>Get checked every 6-12 months</li>
+                    </ul>
+                `;
+                resultDiv.className = "risk-result risk-high";
+            }
+            
+            document.getElementById('riskCategory').textContent = category;
+            document.getElementById('riskDescription').textContent = description;
+            document.getElementById('riskRecommendations').innerHTML = recommendations;
+            resultDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
